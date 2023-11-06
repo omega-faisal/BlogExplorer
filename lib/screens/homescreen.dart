@@ -94,12 +94,13 @@ class _HomeState extends State<Home> {
                   padding: EdgeInsets.only(top: 16),
                   child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 20,
+                    itemCount: articles.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Blogtile(
                           title: articles[index].title,
-                          imageurl: articles[index].imageUrl);
+                          imageurl: articles[index].imageUrl,
+                      newsUrl: articles[index].newsUrl,);
                     },
                   ),
                 )
@@ -162,10 +163,11 @@ class CategoryTile extends StatelessWidget {
 }
 
 class Blogtile extends StatelessWidget {
-  const Blogtile({super.key, required this.title, required this.imageurl});
+  const Blogtile({super.key, required this.title, required this.imageurl,required this.newsUrl});
 
   final String title;
   final String imageurl;
+  final String newsUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -177,8 +179,7 @@ class Blogtile extends StatelessWidget {
           print('gesture 02 worked');
         }
         Navigator.pushNamed(context, '/article_view',arguments: {
-          'title':title,
-          'imageurl':imageurl
+          'newsUrl':newsUrl,
         });
       },
       child: Container(
